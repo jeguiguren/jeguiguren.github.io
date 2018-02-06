@@ -22,9 +22,11 @@ h2 {
 h3 {
 	font-size: 18px;
 }
-span{
+/* Sub-category class */
+.categ{
 	font-weight: bold;
 }
+/* links */
 a {
 	text-decoration: none;
 }
