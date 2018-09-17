@@ -1,0 +1,136 @@
+\documentclass[12pt]{article} 
+
+\usepackage[top=2.54cm, bottom=2.54cm, left=2.54cm, right=2.54cm]{geometry}
+\usepackage{graphicx,color,url}
+
+\pagestyle{plain}
+
+\begin{document}  
+\begin{center}
+	\textsc{COMP160: Algorithms, Fall 2018}, \textbf{Homework 2}
+\end{center}
+ 
+ 
+\begin{enumerate}
+\setcounter{enumi}{-1}
+\item 
+Read sections 4.3--4.5 and 9.5 from CLRS.
+
+\item
+You have 90 coins that are all supposed to be gold coins of the same weight, but you know that one coin is fake and weighs less than the others.  You have a valance scale.  You can put any number of coins on each side of the scale at any time, and it will tell you if the two sides weigh the same of which side is lighter if they do not weigh the same.  
+
+\begin{enumerate}
+\item Outline the most efficient algorithm that you can for finding the fake coin.  Exactly how many weightings will you do?  \\
+
+The coins can be divided into at most 3 distinct groups on each weighting; 1 group on each side of the scale and the third group placed aside. After each weighting, 2 of the 3 groups are discarded. Either one of the sides of the scale is lighter, in which case that one has the fake coin, or both sides are exactly the same, in which case the 3rd group left aside has the fake coin.\\
+In this case, the 90 coins are divided into 3 groups of 30 (wight 1). Then the target group is further divided into 3 groups of 10 (weight 2). Next, 2 groups of 3 are weighted against each other and 4 coins are left aside (weight 3). \\
+Case 1: one of the 3-coin groups in the scale is lighter, so we proceed to weight 2 coins and leave the third out, and we figure out which one is fake. (weight 4). \\
+Case 2: the 3-coin groups weight the same, so the fake coin is in the 4-coin group left aside. We proceed to weight 2 coins and leave 2 coins out (weight 4). If one of the coins in the scale is lighter, we found the fake coin. If not, we need to do one last weighting (weight 5), comparing the 2 coins left aside. \\
+
+In general, we are breaking the pool into 3 groups at each step, and at the end we might be left with an extra weighting if the last pool is not divisible by 3. 
+
+Hence, the algorithm becomes $O(\lceil log_3 90 \rceil)$, which yields 5 total weightings.
+
+\item Generalize your algorithm to run on $n$ coins, for any value of $n$, write down the recurrence formula of the run-time $T(n)$ and analyze its efficiency as exactly as possible.
+
+As mentioned before, the algorithm divides the pool into 3 evenly-distributed groups, performs a weighting with 2 of them, and then proceeds to repeat the process on only one of the groups. This yields the following recursive pattern:\\
+
+$T(n) = T(n/3) + k$, where k denotes the constant time to perform a weighting.
+
+Using the Master Method, we have that the number of leaves is:\\
+$n^{log_b a} = n^{log_3 1} = n^ 0 = 1$, which is equal $\Theta{f(n)}$, so we face case 2:
+
+$T(n) = \Theta(n^{log_b a}\cdot log n)$
+
+
+\end{enumerate}
+
+\item  Solve $T(n) = T(\sqrt{n}) + \log n$\\
+(a) with a recursion tree       \\
+(b) by substitution\\
+
+let $T(k) \leq c \cdot k$, $\forall k \leq n$
+
+$T(\sqrt{n}) \leq c \cdot \sqrt{n}$
+
+$T(n) \leq c \cdot \sqrt{n} + \log n \leq c \cdot n$\\
+
+
+(c) with the master method, applying a change of variables \\
+
+$T(n) = T(n^{1/2}) + \log n$\\
+
+Let $n=2^m$, so that $T(2^m)=T(2^{m/2}) + log (2^m)$ and\\
+$S(m) = T(2^m)$, so $S(m/2) = T(2^{m/2})$ \\
+
+$S(m) = S(m/2) + log (2^m)$\\
+Number of leaves: $n^{log_b a} = n^{log_2 1} = n^0 = 1$, comparing it to $log (2m)$, $f(n)$ dominates.\\
+
+$S(m) = \Theta f(n) = \Theta (log(2^m))$\\
+We get $S(m) = T(2^m) = T(n) = \Theta(log(2^m)) = \Theta(log (n))$\\
+
+$T(n) = \Theta \log n$\\
+
+
+\item
+Given a list  of $n$ numbers, show how to decide in linear time whether it contains at least  $\lceil \frac{n}{2} \rceil$ numbers, all with equal value.  \\
+What if we want to know if there are at least $\lceil \frac{n}{100} \rceil$ numbers with equal value?
+
+\noindent {\bf  Hint:}\\
+Suppose some number, $x$, occurs $\lceil \frac{n}{2} \rceil$ times.   Where could all of these copies end up if we sorted?  (I'm not suggesting we should actually sort).   Wherever they end up, find one invariant. 
+
+
+\item Use the master method, if possible, for the following (use the stronger version of the theorem which is in the slides):
+\begin{enumerate}
+	
+	\item  $T(n) =   16\cdot T(\frac{n}{4}) + n^2$.  \\
+	
+	Number of leaves: $n^{log_b a} = n^{log_4 16} = n^2 $, comparing it to $f(n) = n^2$, we get case 2\\
+    $T(n) = \Theta ( n^{log_b a}\lg n) = \Theta ( n^2\lg n)$\\
+
+	\item  $T(n) = 256\cdot T(\frac{n}{4}) + \Theta(n^4\log^4 n)$. \\
+	
+	Number of leaves: $n^{log_b a} = n^{log_4 256} = n^4 $, comparing it to $f(n) = \Theta(n^4\log^4 n)$,\\
+	we get that $f(n)$ dominates\\
+    $T(n) = \Theta f(n) = \Theta (n^4\log^4 n)$\\
+
+	\item  $T(n) =   157\cdot T(\frac{n}{157}) + n^2$.  \\
+	
+	Number of leaves: $n^{log_b a} = n^{log_{157} 157} = n^1 $, comparing it to $f(n) = n^2$,\\
+	we get that $f(n)$ dominates\\
+    $T(n) = \Theta f(n) = \Theta (n^2)$\\
+
+	\item $T(n) = T(\frac{159n}{732}) + \Theta(n^2)$.\\
+	
+	Number of leaves: $n^{log_b a} = n^{log_{732/159} 1} = n^0 =1 $, comparing it to $f(n) = \Theta n^2$,\\
+	we get that $f(n)$ dominates\\
+    $T(n) = \Theta f(n) = \Theta (n^2)$\\
+
+	
+\end{enumerate}
+
+
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,107 @@
+
+/* Style Sheet Shared across files */
+
+body {
+    font-size: 18px;
+    background-color: white;
+    font-family: Courier New;
+}
+
+/* Top navigation bar */
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+}
+
+/* Main content */
+.main {
+    margin-top: 100px; /* Add a top margin to avoid content overlay */
+}
+
+/* JAE */
+.name a {
+    float: left;
+    color: #f2f2f2;
+    font-weight: normal;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 30px;
+}
+
+/* Subcategories */
+.categories {
+    float: right;
+    position: relative;
+    padding-right: 1%;
+}
+.categories a {
+    float: left;
+    color: #f2f2f2;
+    font-weight: normal;
+    text-align: center;
+    padding: 18px 16px;
+    text-decoration: none;
+    font-size: 20px;
+}
+.categories a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.bio {
+    margin-top: 10%;
+    margin-left: 35%;
+    margin-right: 15%;
+}
+
+/* Jorge A. Eguiguren */
+.bio h1 {
+    position: relative;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    font-size: 50px;
+}
+
+/* Biography */
+.bio p {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+img {
+    display: block;
+    float: left;
+    margin-left: 5%;
+    width: 20%;
+    border-radius: 10px;
+}
+
+.info {
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.info h2{ 
+    padding-top: 4%;
+}
+
+
+.info h3{ 
+    padding-top: 1.5%;
+}
+
+.info p {
+    margin-left: 4%;
+}
+
+h3 span, h4 span { 
+    font-size:18px; 
+    font-weight: normal;
+}
